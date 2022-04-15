@@ -1,7 +1,10 @@
 package com.pcw.demo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import com.pcw.demo.model.Role;
 import com.pcw.demo.model.User;
@@ -29,5 +32,9 @@ public class UserService {
  
         return userrepo.save(user);
     }
+	public List<Role> getRoles() {
+        return rolerepo.findAll();
+    }
+
 
 }
