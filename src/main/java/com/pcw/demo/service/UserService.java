@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.pcw.demo.model.Role;
 import com.pcw.demo.model.User;
+
 import com.pcw.demo.repository.RoleRepository;
 import com.pcw.demo.repository.UserRepository;
 
@@ -19,7 +20,6 @@ public class UserService {
 	@Autowired
 	private RoleRepository rolerepo;
 	
-	
 	public Role addUserRole(Role role) {
 		
 		return rolerepo.save(role);
@@ -29,12 +29,18 @@ public class UserService {
 	public User registerStudent(User user) {
         Role roleUser = rolerepo.findByName("student");
         user.addRole(roleUser);
- 
         return userrepo.save(user);
     }
+	
+	public User fetchUserByEmaiId(String email) {
+		return userrepo.findByEmail(email);
+	}
 	public List<Role> getRoles() {
         return rolerepo.findAll();
     }
+	public User fetchUserByEmailAndPassword(String email,String password) {
+		return userrepo.findUserByEmailAndPassword(email, password);
+	}
 
 
 }

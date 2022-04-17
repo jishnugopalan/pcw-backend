@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pcw.demo.model.Role;
@@ -27,14 +28,43 @@ public class UserController {
 	
 	
 	@PostMapping("/addstudent")
-	public User addUser(@RequestBody User user) {
+	public User addUser(@RequestBody User user) throws Exception{
+		String email=user.getEmail();
+		User userobj=userService.fetchUserByEmaiId(email);
+		if(userobj!=null) {
+		   throw new Exception("User with "+user.getEmail()+" is already exist");
+		}
 		return userService.registerStudent(user);
+	}
+	
+	@PostMapping("/login")
+	@CrossOrigin(origins="http://localhost:4200/")
+	public User loginUser(@RequestBody User user) throws Exception{
+		
+		User userobj1=userService.fetchUserByEmaiId(user.getEmail());
+		if(userobj1!=null) {
+			User userobj2=userService.fetchUserByEmailAndPassword(user.getEmail(),user.getPassword());
+			if(userobj2==null) {
+				throw new Exception("Incorrect Password");
+			}
+			else {
+				return userobj2;
+			}
+		}
+		else {
+			throw new Exception("User not found");
+		}
+		
+		
+		
 	}
 	
 	@GetMapping("/getuserroles")
 	public List<Role> getRoles() {
 		return userService.getRoles();
 	}
+	
+	
 	
 	
 	

@@ -8,8 +8,6 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +24,7 @@ public class User {
 	private long id;
 	
 	private String username;
+	 @Column(unique=true)
 	private String email;
 	private long phone;
 	private String password;
