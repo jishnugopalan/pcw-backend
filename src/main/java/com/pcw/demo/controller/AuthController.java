@@ -69,23 +69,23 @@ public class AuthController {
 		return ResponseEntity.ok(new JwtResponse(jwt, 
 												 userDetails.getId(), 
 												 userDetails.getUsername(), 
-												 userDetails.getEmail(), 
+												 userDetails.getFullname(),
 												 roles));
 	}
 
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Validated @RequestBody SignupRequest signUpRequest) {
-//		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-//		return ResponseEntity
-//				.badRequest()
-//				.body(new MessageResponse("Error: Username is already taken!"));
-//	}
-
-	if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 		return ResponseEntity
 				.badRequest()
-				.body(new MessageResponse("Error: Email is already in use!"));
+				.body(new MessageResponse("Error: Email is already taken!"));
 	}
+
+//	if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+//		return ResponseEntity
+//				.badRequest()
+//				.body(new MessageResponse("Error: Email is already in use!"));
+//	}
 	else {
 		System.out.println(signUpRequest.getPassword());
 		System.out.println(encoder.encode(signUpRequest.getPassword()));
@@ -93,10 +93,10 @@ public class AuthController {
 
 	// Create new user's account
 	
-	User user = new User(signUpRequest.getUsername(), 
-						 signUpRequest.getEmail(),
-						// signUpRequest.getPhone(),
-						 encoder.encode(signUpRequest.getPassword()));
+	User user = new User(signUpRequest.getUsername(),
+			signUpRequest.getFullname(),
+			signUpRequest.getPhone(),
+		    encoder.encode(signUpRequest.getPassword()));
 
 	Set<String> strRoles = signUpRequest.getRole();
 	Set<Role> roles = new HashSet<>();

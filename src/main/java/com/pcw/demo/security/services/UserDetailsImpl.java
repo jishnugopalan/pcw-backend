@@ -21,8 +21,11 @@ public class UserDetailsImpl implements UserDetails {
 	private Long id;
 
 	private String username;
+    private String fullname;
+    
+    private Long phone;
 
-	private String email;
+
 
 	@JsonIgnore
 	private String password;
@@ -33,7 +36,7 @@ public class UserDetailsImpl implements UserDetails {
 			Collection<? extends GrantedAuthority> authorities) {
 		this.id = id;
 		this.username = username;
-		this.email = email;
+		
 		this.password = password;
 		this.authorities = authorities;
 	}
@@ -44,10 +47,10 @@ public class UserDetailsImpl implements UserDetails {
 				.collect(Collectors.toList());
 
 		return new UserDetailsImpl(
-				user.getId(), 
-				user.getUsername(), 
-				user.getEmail(),
-				user.getPassword(), 
+				user.getId(),
+				user.getUsername(),
+				user.getFullname(),
+				user.getPassword(),
 				authorities);
 	}
 
@@ -60,10 +63,7 @@ public class UserDetailsImpl implements UserDetails {
 		return id;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
+	
 	@Override
 	public String getPassword() {
 		return password;
@@ -102,5 +102,13 @@ public class UserDetailsImpl implements UserDetails {
 			return false;
 		UserDetailsImpl user = (UserDetailsImpl) o;
 		return Objects.equals(id, user.id);
+	}
+
+	public String getFullname() {
+		return fullname;
+	}
+
+	public Long getPhone() {
+		return phone;
 	}
 }
