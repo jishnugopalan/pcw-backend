@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pcw.demo.model.Department;
@@ -27,6 +28,11 @@ public class DepartmentController {
 	@PostMapping("/adddepartment")
 	public Department addDepartment(@RequestBody Department department) {
 		return depservice.addDepartment(department);
+	}
+	
+	@GetMapping("/getdepartmentbyid")
+	public Department getDepartmentById(@RequestParam int departmentid) {
+		return depservice.getDepartmentById(departmentid);
 	}
 
 }

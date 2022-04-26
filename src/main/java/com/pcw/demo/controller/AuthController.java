@@ -2,6 +2,7 @@ package com.pcw.demo.controller;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -31,6 +32,7 @@ import com.pcw.demo.repository.RoleRepository;
 import com.pcw.demo.repository.UserRepository;
 import com.pcw.demo.security.jwt.JwtUtils;
 import com.pcw.demo.security.services.UserDetailsImpl;
+import com.pcw.demo.service.UserService;
 
 
 @CrossOrigin(origins="http://localhost:4200/")
@@ -51,9 +53,21 @@ public class AuthController {
 
 	@Autowired
 	JwtUtils jwtUtils;
+	
+	@Autowired
+	public UserService userService;
 
 	@PostMapping("/signin")
-	public ResponseEntity<?> authenticateUser(@Validated @RequestBody LoginRequest loginRequest) {
+	public ResponseEntity<?> authenticateUser(@Validated @RequestBody LoginRequest loginRequest) throws Exception {
+		System.out.println("in signin");
+		if (userRepository.existsByUsername(loginRequest.getUsername())) {
+			
+		}else {
+			return ResponseEntity
+					.badRequest()
+					.body(new MessageResponse("Email Id Not Found"));
+		}
+		
 
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));

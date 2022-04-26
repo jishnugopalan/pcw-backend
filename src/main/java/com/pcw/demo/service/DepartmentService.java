@@ -21,5 +21,9 @@ public class DepartmentService {
 	public List<Department>getDepartments(){
 		return deprep.findAll();
 	}
+	
+	public Department getDepartmentById(int departmemntid) {
+		return deprep.findByDepartmentid(departmemntid);
+	}
 
 }
