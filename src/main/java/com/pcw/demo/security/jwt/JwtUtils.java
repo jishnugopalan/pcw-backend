@@ -20,7 +20,7 @@ public class JwtUtils {
 	@Value("pcwxx")
 	private String jwtSecret;
 
-	@Value("8000000")
+	@Value("288000000")
 	private int jwtExpirationMs;
 
 	public String generateJwtToken(Authentication authentication) {

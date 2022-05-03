@@ -54,10 +54,17 @@ public class StudentDetailsController {
 			  @RequestPart("photo") MultipartFile file5,
 			  @RequestParam("sslcpercentage") String sslcpercentage,
 			  @RequestParam("plustwopercentage") String plustwopercentage,
-			  @RequestParam("ugpercentage") String ugpercentage
+			  @RequestParam("ugpercentage") String ugpercentage,
+			  @RequestParam("gender")String gender,
+			  @RequestParam("date_of_birth")String date_of_birth,
+			  @RequestParam("batchid")String batchid,
+			  @RequestParam("academic_starting_year")String academic_starting_year,
+			  @RequestParam("academic_ending_year")String academic_ending_year
 			 ) {
 	    String message = "";
 	    try {
+	    	
+
 	    	StudentDetails student=new StudentDetails();
 	    	System.out.println(userid);
 	    	System.out.println(file1.getOriginalFilename());
@@ -92,6 +99,11 @@ public class StudentDetailsController {
 	    	student.setSslcpercentage(Integer.parseInt(sslcpercentage));
 	    	student.setPlustwopercentage(Integer.parseInt(plustwopercentage));
 	    	student.setUgpercentage(Integer.parseInt(ugpercentage));
+	    	student.setGender(gender);
+	    	student.setDate_of_birth(date_of_birth);
+	    	student.setBatchid(batchid);
+	    	student.setAcademic_starting_year(academic_starting_year);
+	    	student.setAcademic_ending_year(academic_ending_year);
 	    	
 	    	stdservice.addStudentDetails(student);
 	    	

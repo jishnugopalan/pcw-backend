@@ -36,6 +36,11 @@ public class StudentDetails {
 	private int sslcpercentage;
 	private int plustwopercentage;
 	private int ugpercentage;
+	private String gender;
+	private String date_of_birth;
+	private String batchid;
+	private String academic_starting_year;
+	private String academic_ending_year;
 	
 
 }

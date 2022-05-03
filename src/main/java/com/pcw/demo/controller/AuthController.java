@@ -89,6 +89,7 @@ public class AuthController {
 
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Validated @RequestBody SignupRequest signUpRequest) {
+		System.out.println("Roles"+signUpRequest.getRole());
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 		return ResponseEntity
 				.badRequest()
@@ -114,6 +115,8 @@ public class AuthController {
 
 	Set<String> strRoles = signUpRequest.getRole();
 	Set<Role> roles = new HashSet<>();
+	
+	System.out.println("Roles"+signUpRequest.getRole());
 
 	if (strRoles == null) {
 		Role userRole = roleRepository.findByName("student");
@@ -123,13 +126,13 @@ public class AuthController {
 		strRoles.forEach(role -> {
 			switch (role) {
 			case "admin":
-				Role adminRole = roleRepository.findByName("admin");
+				Role adminRole = roleRepository.findByName(role);
 						
 				roles.add(adminRole);
 
 				break;
 			case "student":
-				Role modRole = roleRepository.findByName("student");
+				Role modRole = roleRepository.findByName(role);
 						
 				roles.add(modRole);
 

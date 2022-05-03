@@ -16,6 +16,7 @@ import com.pcw.demo.service.DepartmentService;
 
 @CrossOrigin(origins="http://localhost:4200/")
 @RestController
+
 public class DepartmentController {
 	@Autowired
 	private DepartmentService depservice;
