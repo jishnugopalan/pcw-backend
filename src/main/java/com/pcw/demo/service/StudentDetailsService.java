@@ -28,10 +28,12 @@ public class StudentDetailsService  implements StudentDetailsRepository{
 	
 	private final Path root = Paths.get("uploads");
 	
+	//add student details
 	public StudentDetails addStudentDetails(StudentDetails studentDetails) {	
 		return std.save(studentDetails);
 	}
 	
+	//view student details by userid
 	public StudentDetails viewStudentById(Long userid) {
 		return std.findByUserid(userid);
 	}
@@ -46,6 +48,7 @@ public class StudentDetailsService  implements StudentDetailsRepository{
 	    }
 	  }
 
+	  //save a document
 	  @Override
 	  public void saveFile(MultipartFile file,String uploadDir) {
 	    try {
@@ -60,6 +63,11 @@ public class StudentDetailsService  implements StudentDetailsRepository{
 	    } catch (Exception e) {
 	      throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
 	    }
+	  }
+	  
+	  //delete a student details
+	  public void deleteStudentDetails(int studentid) {
+		  std.deleteById(studentid);
 	  }
 
 	  @Override

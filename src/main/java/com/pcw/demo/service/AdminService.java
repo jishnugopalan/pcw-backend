@@ -25,6 +25,7 @@ public class AdminService {
 	@Autowired
 	private RoleRepository roleRepository;
 	
+	//Add department representative
 	public User addDepartmentRep(Long id) {
 		User rep=userrepo.findById(id);
 		 Set<Role> roles=rep.getRoles();
@@ -34,6 +35,8 @@ public class AdminService {
 		 userrepo.save(rep);
 		 return rep;
 	}
+	
+	//Save a new document
 	 public void saveFile(MultipartFile file,String uploadDir) {
 		    try {
 		    	Path uploadPath = Paths.get(uploadDir);

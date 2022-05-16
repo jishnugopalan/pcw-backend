@@ -6,5 +6,6 @@ import com.pcw.demo.model.StudentDetails;
 
 public interface StudentRepository extends JpaRepository<StudentDetails, Integer>{
 	StudentDetails findByUserid(Long userid);
+	int deleteByUserid(Long userid);
 
 }

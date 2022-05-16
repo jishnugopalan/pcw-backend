@@ -9,5 +9,8 @@ import com.pcw.demo.model.PlacementDetails;
 
 public interface PlacementDetailsRepository extends JpaRepository<PlacementDetails, Long>{
 	public PlacementDetails findByPid(Long pid);
+	public Long deleteByPid(Long pid);
+	
+
 
 }

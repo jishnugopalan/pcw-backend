@@ -17,14 +17,22 @@ public class BatchService {
 	@Autowired
 	private BatchRepository batchRepo;
 	
+	//Add a new batch
 	public Batch addBatch(Batch batch) {
 		return batchRepo.save(batch);
 	}
+	//find batch by department id
 	public List findByDepartmentid(int departmentid){
 		return batchRepo.findByDepartmentid(departmentid);
 	}
+	//find batch by batchid
 	public Batch findByBatchid(int batchid) {
 		return batchRepo.findByBatchid(batchid);
+	}
+	
+	//delete a batch
+	public void deleteBatchByid(int batchid) {
+		batchRepo.deleteById(batchid);
 	}
 
 }

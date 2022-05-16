@@ -18,6 +18,7 @@ public class PlacementDetailsService {
 	@Autowired
 	private PlacementDetailsRepository placementRepo;
 	
+	//add placement details
 	public PlacementDetails addPlacementDetails(PlacementDetails pls) {
 		return placementRepo.save(pls);
 	}
@@ -36,8 +37,18 @@ public class PlacementDetailsService {
 		      throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
 		    }
 		  }
+	 
+	 //get all placement details
 	 public List<PlacementDetails> viewAllDetails() {
 		 return placementRepo.findAll();
+	 }
+	 //get placement details by placement id
+	 public PlacementDetails viewPlacementDetailsById(Long pid) {
+		 return placementRepo.findByPid(pid);
+	 }
+	 //delete placement details
+	 public void deletePlacementDetails(Long pid) {
+		 placementRepo.deleteById(pid);
 	 }
 	 
 

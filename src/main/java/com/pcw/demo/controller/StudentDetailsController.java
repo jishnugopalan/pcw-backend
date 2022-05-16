@@ -31,11 +31,10 @@ import antlr.StringUtils;
 @CrossOrigin(origins="http://localhost:4200/")
 @RestController
 public class StudentDetailsController {
-	
-	
-	
 	@Autowired
 	private StudentDetailsService stdservice;
+	
+	//Add student details
 	@PostMapping("/addstudentdetails")
 	  public ResponseEntity<ResponseMessage> uploadFile(
 			  @RequestParam("userid") String userid,
@@ -118,6 +117,8 @@ public class StudentDetailsController {
 	    	return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("exception occured"));
 	    }
 	  }
+	
+	//View student details by id
 	@GetMapping("/viewstudentdetailsbyid")
 	public StudentDetails viewStudentById(@RequestParam("userid") Long userid) throws Exception {
 		
@@ -142,6 +143,8 @@ public class StudentDetailsController {
 //	    return ResponseEntity.status(HttpStatus.OK).body(fileInfos);
 //	  }
 //
+	
+	//View uploaded documents
 	  @GetMapping("/files/{filename:.+}")
 	  public ResponseEntity<Resource> getFile(@PathVariable String filename) {
 		  System.out.println(filename);

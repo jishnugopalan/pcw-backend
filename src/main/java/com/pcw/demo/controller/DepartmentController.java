@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,19 +22,28 @@ public class DepartmentController {
 	@Autowired
 	private DepartmentService depservice;
 	
+	//Get all departments
 	@GetMapping("/getdepartments")
-	public List<Department> getRoles() {
+	public List<Department> getDepartments() {
 		return depservice.getDepartments();
 	}
 	
+	//Add a new department
 	@PostMapping("/adddepartment")
 	public Department addDepartment(@RequestBody Department department) {
 		return depservice.addDepartment(department);
 	}
 	
+	//Get all department details by department id
 	@GetMapping("/getdepartmentbyid")
 	public Department getDepartmentById(@RequestParam int departmentid) {
 		return depservice.getDepartmentById(departmentid);
+	}
+	//Delete a department
+	@DeleteMapping("/delete-department")
+	public void deleteDepartmentById(@RequestParam int departmentid) {
+		depservice.deleteDepartmentById(departmentid);
+		
 	}
 
 }

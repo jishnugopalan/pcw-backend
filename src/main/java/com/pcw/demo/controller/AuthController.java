@@ -57,6 +57,7 @@ public class AuthController {
 	@Autowired
 	public UserService userService;
 
+	//Registration of all users
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Validated @RequestBody LoginRequest loginRequest) throws Exception {
 		System.out.println("in signin");
@@ -87,6 +88,7 @@ public class AuthController {
 												 roles));
 	}
 
+	//Login users
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Validated @RequestBody SignupRequest signUpRequest) {
 		System.out.println("Roles"+signUpRequest.getRole());
