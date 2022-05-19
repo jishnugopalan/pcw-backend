@@ -130,6 +130,7 @@ public class AdminController {
 		
 		
 	}
+	//update job description file
 	@PostMapping("/update-job-description")
     public PlacementDetails updateJobDescription(@RequestParam String pid,@RequestPart("job_description_file")MultipartFile file) throws IOException {
     	Long _pid=Long.valueOf(pid);
@@ -145,6 +146,17 @@ public class AdminController {
 		plsrepo.save(obj);
 		return obj;
 		
+	}
+	
+	//get all department rep
+	@GetMapping("/get-all-department-rep")
+	public List  getAllDepartmentRep() {
+		System.out.println(userRepo.getAllDepartmentRep());
+		return userRepo.getAllDepartmentRep();
+	}
+	@GetMapping("/get-department-by-userid")
+	public List getDepartmentByuserid(@RequestParam Long id) {
+		return userRepo.getDepartmentByUserid(id);
 	}
 	
 

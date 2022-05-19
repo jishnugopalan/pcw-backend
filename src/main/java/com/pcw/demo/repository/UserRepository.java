@@ -16,6 +16,15 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 	User findById(Long id);
 	@Query(value="select id,fullname from users where id in(select userid from student_details where departmentid=?1)",nativeQuery = true)
     List getUsersByDepartment(int departmentid);
+	
+	@Query(value="select * from users where id in(select id from department_rep where departmentid=?1)",nativeQuery = true)
+	List getDepartmentRepByDepartmentid(int departmentid);
+	
+	@Query(value="select * from users where id in(select id from department_rep)",nativeQuery = true)
+	List getAllDepartmentRep();
+	
+	@Query(value="select department from departments where departmentid in(select departmentid from department_rep where id=?1)",nativeQuery = true)
+	List getDepartmentByUserid(Long id);
 
 	
 

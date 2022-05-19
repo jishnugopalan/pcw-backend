@@ -18,7 +18,14 @@ public class BatchService {
 	private BatchRepository batchRepo;
 	
 	//Add a new batch
-	public Batch addBatch(Batch batch) {
+	public Batch addBatch(Batch batch) throws Exception {
+		List<Batch> b=batchRepo.findAll();
+		for(int i=0;i<b.size();i++) {
+			Batch obj=b.get(i);
+			if(obj.getBatchname().equalsIgnoreCase(batch.getBatchname())) {
+				throw new Exception(batch.getBatchname()+" is already added");
+			}
+		}
 		return batchRepo.save(batch);
 	}
 	//find batch by department id

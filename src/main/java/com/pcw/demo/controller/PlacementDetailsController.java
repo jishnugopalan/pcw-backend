@@ -96,8 +96,10 @@ public class PlacementDetailsController {
 	}
 	//delete a placement details
 	@DeleteMapping("/delete-placementdetails")
-	public void deletePlacementDetails(Long pid) {
+	public PlacementDetails deletePlacementDetails(Long pid) {
+		PlacementDetails pds=pdService.viewPlacementDetailsById(pid);
 		pdService.deletePlacementDetails(pid);
+		return pds;
 	 }
 	
 	@GetMapping("/view-placement-details-byid")

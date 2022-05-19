@@ -26,7 +26,7 @@ public class BatchController {
 	
 	//Add a new batch
 	@PostMapping("/addbatch")
-	public Batch addBatch(@RequestBody Batch batch) {
+	public Batch addBatch(@RequestBody Batch batch) throws Exception {
 		return batchService.addBatch(batch);
 	}
 	

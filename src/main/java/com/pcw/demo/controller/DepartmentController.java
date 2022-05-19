@@ -30,7 +30,7 @@ public class DepartmentController {
 	
 	//Add a new department
 	@PostMapping("/adddepartment")
-	public Department addDepartment(@RequestBody Department department) {
+	public Department addDepartment(@RequestBody Department department) throws Exception {
 		return depservice.addDepartment(department);
 	}
 	

@@ -27,6 +27,7 @@ public class PlacementDetails {
 	private String companyname;
 	private double ctc;
 	private String designantion;
+	@Column(length=1000)
 	private String description;
 	private String registration_link;
 	private String registration_start_date;
