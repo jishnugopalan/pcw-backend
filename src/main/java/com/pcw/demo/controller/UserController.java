@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pcw.demo.model.Role;
 import com.pcw.demo.model.User;
+import com.pcw.demo.repository.UserRepository;
 import com.pcw.demo.service.UserService;
 
 @CrossOrigin(origins="http://localhost:4200/")
@@ -21,11 +22,20 @@ public class UserController {
 	
 	@Autowired
 	public UserService userService;
+	@Autowired
+	public UserRepository userRepo;
 	
 	@GetMapping("/userdata")
 	public Optional<User> getUser(@RequestParam String email) {
 		return userService.getUser(email);
 	}
+	
+	@GetMapping("/get-user-data")
+	public User getUserDetails(@RequestParam Long id) {
+		return userRepo.findById(id);
+	}
+	
+	
 	
 
 

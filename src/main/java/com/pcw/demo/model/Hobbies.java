@@ -1,9 +1,5 @@
 package com.pcw.demo.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,14 +11,12 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class EligiblePlacementDepartments {
+@AllArgsConstructor
+public class Hobbies {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="epid")
-	private int id;
-	private Long pid;
-	private int departmentid;
+	private Long hobbiesid;
+	private String hobby;
 
 }

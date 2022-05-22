@@ -41,6 +41,7 @@ public class StudentDetails {
 	private String batchid;
 	private String academic_starting_year;
 	private String academic_ending_year;
+	private boolean isverified=false;
 	
 
 }

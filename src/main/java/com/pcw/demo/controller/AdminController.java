@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Set;
 
 import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.pcw.demo.model.DepartmentRep;
 import com.pcw.demo.model.PlacementDetails;
+import com.pcw.demo.model.Role;
 import com.pcw.demo.model.User;
 import com.pcw.demo.repository.DepartmentRepRepository;
 import com.pcw.demo.repository.PlacementDetailsRepository;
+import com.pcw.demo.repository.RoleRepository;
 import com.pcw.demo.repository.UserRepository;
 import com.pcw.demo.service.AdminService;
 import com.pcw.demo.service.PlacementDetailsService;
@@ -44,6 +47,10 @@ public class AdminController {
 	private UserRepository userRepo;
 	@Autowired
 	private DepartmentRepRepository deprep;
+	@Autowired
+	private UserRepository userrepo;
+	@Autowired
+	private RoleRepository roleRepository;
 	
  
 
@@ -88,10 +95,33 @@ public class AdminController {
 	//add department rep
 	@PostMapping("/add-department-rep")
 	public User addDepartmentRep(@RequestParam Long id,@RequestParam int departmentid) {
-		DepartmentRep drep=new DepartmentRep();
-		drep.setDepartmentid(departmentid);
-		drep.setId(id);
-		deprep.save(drep);
+		DepartmentRep drep=deprep.findByDepartmentid(departmentid);
+		System.out.println(drep);
+		if(drep==null) {
+			System.out.println("Object null");
+			DepartmentRep obj=new DepartmentRep();
+			obj.setDepartmentid(departmentid);
+			obj.setId(id);
+			deprep.save(obj);
+			
+		}
+		else {
+			System.out.println("Object");
+			User rep=userrepo.findById(drep.getId());
+			
+			 Set<Role> roles=rep.getRoles();
+			 System.out.println(rep.getRoles());
+			 roles.remove(roleRepository.findByName("representative"));
+     		 rep.setRoles(roles);
+     		 System.out.println(rep);
+			 userrepo.save(rep);
+			
+			drep.setDepartmentid(departmentid);
+			drep.setId(id);
+			deprep.save(drep);
+		}
+		
+		
 		return adminService.addDepartmentRep(id);
 	}
 	

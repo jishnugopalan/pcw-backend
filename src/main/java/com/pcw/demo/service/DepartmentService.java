@@ -4,16 +4,21 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.pcw.demo.model.Batch;
 import com.pcw.demo.model.Department;
-
+import com.pcw.demo.payload.response.MessageResponse;
+import com.pcw.demo.repository.BatchRepository;
 import com.pcw.demo.repository.DepartmentRepository;
 
 @Service
 public class DepartmentService {
 	@Autowired
 	private DepartmentRepository deprep;
+	@Autowired
+	private BatchRepository batchRepo;
 	
 	//add a new department
     public Department addDepartment(Department department) throws Exception {	
@@ -41,8 +46,14 @@ public class DepartmentService {
 	}
 	
 	//delete a department
-	public void deleteDepartmentById(int departmentid) {
+	public ResponseEntity<?> deleteDepartmentById(int departmentid) {
+		List b=batchRepo.findByDepartmentid(departmentid);
+		for(int i=0;i<b.size();i++) {
+			Batch obj=(Batch) b.get(i);
+			batchRepo.deleteById(obj.getBatchid());
+		}
 		deprep.deleteById(departmentid);
+		return ResponseEntity.ok(new MessageResponse("Department deleted successfully"));
 		
 	}
 

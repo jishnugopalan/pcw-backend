@@ -4,6 +4,7 @@ package com.pcw.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,8 +45,8 @@ public class BatchController {
 	}
 	//delete a batch
 	@DeleteMapping("/delete-batch")
-	public void deleteBatchByid(@RequestParam int batchid) {
-		batchService.deleteBatchByid(batchid);
+	public ResponseEntity<?> deleteBatchByid(@RequestParam int batchid) {
+		return batchService.deleteBatchByid(batchid);
 	}
 	
 	

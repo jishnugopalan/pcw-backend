@@ -3,11 +3,14 @@ package com.pcw.demo.service;
 
 import java.util.List;
 
+import org.aspectj.bridge.Message;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.pcw.demo.model.Batch;
 import com.pcw.demo.model.Department;
+import com.pcw.demo.payload.response.MessageResponse;
 import com.pcw.demo.repository.BatchRepository;
 
 
@@ -38,8 +41,9 @@ public class BatchService {
 	}
 	
 	//delete a batch
-	public void deleteBatchByid(int batchid) {
+	public ResponseEntity<?> deleteBatchByid(int batchid) {
 		batchRepo.deleteById(batchid);
+		return ResponseEntity.ok(new MessageResponse("Batch deleted successfully"));
 	}
 
 }

@@ -3,6 +3,8 @@ package com.pcw.demo.model;
 
 import javax.persistence.*;
 
+import lombok.Data;
+
 @Entity
 @Table(name = "roles")
 public class Role {

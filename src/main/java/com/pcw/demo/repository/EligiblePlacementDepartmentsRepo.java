@@ -11,7 +11,7 @@ import com.pcw.demo.model.User;
 import org.springframework.data.jpa.repository.Query;
 public interface EligiblePlacementDepartmentsRepo extends JpaRepository<EligiblePlacementDepartments, Integer>{
 	public List findByDepartmentid(int pid);
-	public List findByPid(int pid);
+	public List findByPid(Long pid);
 	
 	@Query(value = "select * from eligible_placement_departments where pid=?1 and departmentid=?2", nativeQuery = true)
 	EligiblePlacementDepartments deleteEligibleDep(int pid,int departmentid); 

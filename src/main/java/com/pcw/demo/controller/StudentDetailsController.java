@@ -22,7 +22,8 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 
 
 import com.pcw.demo.model.StudentDetails;
-
+import com.pcw.demo.payload.response.MessageResponse;
+import com.pcw.demo.repository.StudentRepository;
 import com.pcw.demo.service.StudentDetailsService;
 import com.pcw.demo.upload.message.ResponseMessage;
 
@@ -33,6 +34,8 @@ import antlr.StringUtils;
 public class StudentDetailsController {
 	@Autowired
 	private StudentDetailsService stdservice;
+	@Autowired
+	private StudentRepository studentRepo;
 	
 	//Add student details
 	@PostMapping("/addstudentdetails")
@@ -128,6 +131,42 @@ public class StudentDetailsController {
 		}
 		else
 			return obj;
+	}
+	
+	@GetMapping("/get-all-students-by-departmentid")
+	public List getAllStudentDetailsByDepartmentid(@RequestParam int departmentid) {
+		
+		List q=studentRepo.getStudentDetailsByDepartment(departmentid);
+		return q;
+		
+	}
+	
+	@PostMapping("/update-student-details")
+	public StudentDetails updateStudentDetails(@RequestParam Long userid,
+			@RequestParam("registration_number") String registration_number,
+			 @RequestParam("sslcpercentage") String sslcpercentage,
+			  @RequestParam("plustwopercentage") String plustwopercentage,
+			  @RequestParam("ugpercentage") String ugpercentage,
+			  @RequestParam("academic_starting_year")String academic_starting_year,
+			  @RequestParam("academic_ending_year")String academic_ending_year) {
+		
+		StudentDetails obj= studentRepo.findByUserid(userid);
+		obj.setAcademic_ending_year(academic_ending_year);
+		obj.setAcademic_starting_year(academic_starting_year);
+		obj.setRegistration_number(Long.valueOf(registration_number));
+		obj.setSslcpercentage(Integer.parseInt(sslcpercentage));
+    	obj.setPlustwopercentage(Integer.parseInt(plustwopercentage));
+    	obj.setUgpercentage(Integer.parseInt(ugpercentage));
+    	studentRepo.save(obj);
+    	return obj;
+	}
+	
+	@PostMapping("/verify-student")
+	public ResponseEntity<?> verifyStudent(@RequestParam("userid") String userid) {
+		StudentDetails obj= studentRepo.findByUserid(Long.valueOf(userid));
+		obj.setIsverified(true);
+		studentRepo.save(obj);
+		return ResponseEntity.ok(new MessageResponse("Verfied"));
 	}
 
 //	  @GetMapping("/files")

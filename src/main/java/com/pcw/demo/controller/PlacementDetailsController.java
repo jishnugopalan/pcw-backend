@@ -34,6 +34,8 @@ public class PlacementDetailsController {
 	@Autowired
 	private DepartmentService depservice;
 	
+	
+	
 	//Add eligible department for placement 
 	@PostMapping("/add-eligible-department")
 	public EligiblePlacementDepartments addEligiblePlacementDepartment(@RequestBody EligiblePlacementDepartments epd) {
@@ -58,7 +60,7 @@ public class PlacementDetailsController {
 	
 	//get eligible department list by placement id
 	@GetMapping("/view-eligible-department-by-pid")
-	public List getEligibleDepartmentByPid(@RequestParam int pid) {
+	public List getEligibleDepartmentByPid(@RequestParam Long pid) {
 		List<Department> deps = new ArrayList<>();
 		List edep= epdRepo.findByPid(pid);
 		for(int i=0;i<edep.size();i++) {
@@ -98,6 +100,11 @@ public class PlacementDetailsController {
 	@DeleteMapping("/delete-placementdetails")
 	public PlacementDetails deletePlacementDetails(Long pid) {
 		PlacementDetails pds=pdService.viewPlacementDetailsById(pid);
+		List deps=epdRepo.findByPid(pid);
+		for(int i=0;i<deps.size();i++) {
+			EligiblePlacementDepartments d=(EligiblePlacementDepartments) deps.get(i);
+			epdRepo.deleteById(d.getId());
+		}
 		pdService.deletePlacementDetails(pid);
 		return pds;
 	 }
