@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,19 +28,25 @@ public class Resume {
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	 private Long resumeid;
 	 private Long userid ;
-	 @ManyToMany(fetch = FetchType.LAZY)
+	 @OneToOne(fetch=FetchType.EAGER)
+	 private Summary summary;
+	 
+	 @OneToMany(fetch = FetchType.LAZY)
 	 private Set<Skills> skills=new HashSet<>();
 	 
-	 @ManyToMany(fetch = FetchType.LAZY)
+	 @OneToMany(fetch = FetchType.LAZY)
+	 private Set<Education> education=new HashSet<>();
+	 
+	 @OneToMany(fetch = FetchType.LAZY)
 	 private Set<Certifications> certifications=new HashSet<>();
 	 
-	 @ManyToMany(fetch = FetchType.LAZY)
+	 @OneToMany(fetch = FetchType.LAZY)
 	 private Set<Experiences> experiences=new HashSet<>();
 	 
-	 @ManyToMany(fetch = FetchType.LAZY)
+	 @OneToMany(fetch = FetchType.LAZY)
 	 private Set<Hobbies> hobbies=new HashSet<>();
 	 
-	 @ManyToMany(fetch = FetchType.LAZY)
+	 @OneToMany(fetch = FetchType.LAZY)
 	 private Set<Projects> projects=new HashSet<>();
 	
 	
