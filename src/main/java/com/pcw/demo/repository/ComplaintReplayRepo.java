@@ -5,9 +5,9 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.pcw.demo.model.Complaint;
-import com.pcw.demo.model.ComplaintReplay;
+import com.pcw.demo.model.ComplaintReply;
 
-public interface ComplaintReplayRepo extends JpaRepository<ComplaintReplay,Long>{
-	public ComplaintReplay findByComplaint(Optional<Complaint> complaint);
+public interface ComplaintReplayRepo extends JpaRepository<ComplaintReply,Long>{
+	public ComplaintReply findByComplaint(Optional<Complaint> complaint);
 
 }

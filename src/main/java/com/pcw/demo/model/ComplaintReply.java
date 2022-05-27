@@ -18,12 +18,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ComplaintReplay {
+public class ComplaintReply {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long replayid;
+	private Long replyid;
 	@Column(length=1000)
-	private String replay;
+	private String reply;
 	private Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 	@OneToOne
 	Complaint complaint;
