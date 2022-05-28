@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pcw.demo.model.Role;
@@ -57,7 +58,7 @@ public class AuthController {
 	@Autowired
 	public UserService userService;
 
-	//Registration of all users
+	//lgin
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Validated @RequestBody LoginRequest loginRequest) throws Exception {
 		System.out.println("in signin");
@@ -88,7 +89,7 @@ public class AuthController {
 												 roles));
 	}
 
-	//Login users
+	//registration
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Validated @RequestBody SignupRequest signUpRequest) {
 		System.out.println("Roles"+signUpRequest.getRole());
@@ -152,4 +153,27 @@ public class AuthController {
 
 	return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}
+	
+	@PostMapping("/update-password")
+	public ResponseEntity<?> updatePassword(@RequestParam String password,@RequestParam Long id){
+		User user=userRepository.findById(id);
+		String encoded_password= encoder.encode(password);
+		user.setPassword(encoded_password);
+		userRepository.save(user);
+		return ResponseEntity.ok(new MessageResponse("Password Updated Successfully"));
+		
+	}
+	@PostMapping("/update-profile")
+	public ResponseEntity<?> updateProfile(@RequestParam String id,@RequestParam String fullname,@RequestParam String username,
+			@RequestParam Long phone){
+		User user=userRepository.findById(Long.valueOf(id));
+		user.setFullname(fullname);
+		user.setUsername(username);
+		user.setPhone(phone);
+		userRepository.save(user);
+		return ResponseEntity.ok(new MessageResponse("Updated Successfully"));
+	}
+	
+	
+	
 }
