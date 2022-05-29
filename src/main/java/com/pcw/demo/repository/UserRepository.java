@@ -26,6 +26,8 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 	@Query(value="select department from departments where departmentid in(select departmentid from department_rep where id=?1)",nativeQuery = true)
 	List getDepartmentByUserid(Long id);
 
+	Optional<User> findByPhone(Long phone);
+
 	
 
 	

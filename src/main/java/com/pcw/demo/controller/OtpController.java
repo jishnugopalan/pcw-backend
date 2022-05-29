@@ -56,6 +56,16 @@ public class OtpController {
 			throw new Exception(email+" is not registered");
 		}
 	}
+	@GetMapping("/verify-phone")
+	public ResponseEntity<?> validatePhone(@RequestParam String phone) throws Exception {
+		Optional<User> user=userRepo.findByPhone(Long.valueOf(phone));
+		if(user.isPresent()) {
+			return ResponseEntity.ok(new MessageResponse("User with "+phone+" is already exist"));
+		}
+		else {
+			throw new Exception(phone+" is not registered");
+		}
+	}
 	
 	@GetMapping("/validate-otp")
 	public ResponseEntity<?> validateOtp(@RequestParam String email,@RequestParam int otp) throws Exception {
